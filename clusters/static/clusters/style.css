@@ -1,0 +1,138 @@
+@font-face {
+  font-family: 'CascadiaCode';
+  src: url("fonts/CascadiaCode.ttf");
+  display: swap;
+}
+
+* {
+  font-family: 'CascadiaCode', monospace;
+}
+
+/* html,
+body,
+body > div:first-child,
+div#__next,
+div#__next > div {
+  width: 90%;
+  height: 90%;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: cente;
+} */
+
+/* ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: underline;
+} */
+
+.cloudy-background {
+  background-image: url("images/Cloudy.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.base-background {
+  background-color: #e9ecef;
+  background-image: url("images/wave1.svg"), url("images/wave2.svg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom, top;
+}
+
+.card {
+  border: none !important;
+  border-radius: 0.8rem !important;
+}
+
+.card-footer {
+  border: none !important;
+}
+
+.card-header {
+  border: none !important;
+}
+
+.btn {
+  border-radius: 0.6rem !important;
+}
+
+.btn-secondary.active {
+  background-color: #dee2e6 !important;
+}
+
+.form-control {
+  border-radius: 0.6rem !important;
+}
+
+.rounded-custom {
+  border-radius: 0.6rem;
+}
+
+.bg-custom {
+  background-color: #343a40 !important;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.nav-item {
+  border-radius: 0.6rem !important;
+}
+
+.nav-link {
+  border-radius: 0.6rem !important;
+}
+
+
+.nav-tabs {
+  .nav-link {
+    &:hover,
+    &:focus {
+      color: #007bff;
+    }
+
+    &.active {
+      font-weight: 600;
+    }
+  }
+}
+
+.nav-pills {
+  .nav-link:not(.active) {
+    &:hover,
+    &:focus {
+      background-color: rgba(0, 123, 255, 0.06);
+    }
+  }
+}

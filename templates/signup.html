@@ -1,0 +1,35 @@
+{% extends "base_login.html" %}
+
+{% block content %}
+<section class="vh-100">
+  <div class="h-100">
+    <div class="d-flex justify-content-center align-items-center h-100">
+      <div class="p-2" style="width: 460px;">
+        <div class="rounded-custom bg-custom">
+          <div class="card-body p-5">
+            <form action="/signup/", method="POST" class="form-signin text-center">
+              {% csrf_token %}
+              <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="asdf" name="username" required>
+                <label for="floatingInput" class="form-label">Username</label>
+              </div>
+              <div class="form-floating mt-2">
+                <input type="password" class="form-control" id="floatingPassword" name="password1" required placeholder="Password">
+                <label for="floatingPassword">Password</label>
+              </div>
+              <div class="form-floating mt-2">
+                <input type="password" class="form-control" id="floatingPassword" name="password2" required placeholder="Password confirmation">
+                <label for="floatingPassword">Password confirmation</label>
+              </div>
+              <button class="w-100 btn btn-lg btn-light" type="submit">
+                Sign up
+              </button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker Web Manager</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'clusters/style.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body class="base-background">
+  <div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
+    <div class="row w-100 h-75">
+      <div class="col-6 h-100">
+        <div class="card p-3 h-100">
+          ASDF
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row" style="height: 15%;">
+          <div class="col d-flex justify-content-center align-items-center">
+            <div class="card">
+              {% include 'navbar.html' %}
+            </div>
+          </div>
+        </div>
+        <div class="row" style="height: 85%;">
+          <div class="col h-100">
+            <div class="card p-3 h-100">
+              {% block content %}
+              {% endblock content %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
