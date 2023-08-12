@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.utils import timezone
-
+import docker
+from contextlib import contextmanager
 
 @login_required
 def index(request):
@@ -13,11 +13,31 @@ def index(request):
 
 @login_required
 def images(request):
-    return render(request, 'clusters/images.html', {'request': request})
+    with docker_client() as client:
+        images = client.images.list()
+
+    return render(request, 'clusters/images.html', {
+        'request': request,
+        'images': images
+      }
+    )
 
 @login_required
 def containers(request):
-    return render(request, 'clusters/containers.html', {'request': request})
+    with docker_client() as client:
+        containers = client.containers.list()
+
+    return render(request, 'clusters/containers.html', {
+        'request': request,
+        'containers': containers
+      }
+    )
+
+def pull_image(request):
+    with docker_client() as client:
+      client.images.pull(request.POST['image_name'])
+
+    return redirect('images')
 
 def signup(request):
     if request.method == 'GET':
@@ -75,3 +95,8 @@ def signin(request):
         else:
             login(request, user)
             return redirect('index')
+
+@contextmanager
+def docker_client():
+    client = docker.from_env()
+    yield client

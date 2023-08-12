@@ -1,5 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>IMAGES</h1>
+
+<div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
+  <div class="row w-100 h-75">
+    <div class="col-6 h-100">
+      <div class="row" style="height: 14%;">
+        <div class="col d-flex justify-content-center align-items-center">
+          <div class="card">
+            {% include 'navbar.html' %}
+          </div>
+        </div>
+      </div>
+      <div class="row" style="height: 86%;">
+        <div class="col h-100">
+          <div class="card p-3 h-100 overflow-auto">
+            {% for image in images %}
+              {{image.tags}}
+              <br>
+              <br>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 h-100">
+      <div class="card p-3 h-100">
+
+        <form action="{% url 'pull_image' %}", method="POST">
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <input type="text" name="image_name" class="form-control me-2" placeholder="alpine:latest">
+            <button class="btn btn-outline-primary" type="submit" id="button-addon2">Pull</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

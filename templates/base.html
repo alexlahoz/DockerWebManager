@@ -8,34 +8,11 @@
   {% load static %}
   <link rel="stylesheet" href="{% static 'clusters/style.css' %}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="shortcut icon" type="image/png" href="{% static 'clusters/images/nas.png' %}" >
 </head>
 <body class="base-background">
-  <div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
-    <div class="row w-100 h-75">
-      <div class="col-6 h-100">
-        <div class="card p-3 h-100">
-
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="row" style="height: 15%;">
-          <div class="col d-flex justify-content-center align-items-center">
-            <div class="card">
-              {% include 'navbar.html' %}
-            </div>
-          </div>
-        </div>
-        <div class="row" style="height: 85%;">
-          <div class="col h-100">
-            <div class="card p-3 h-100">
-              {% block content %}
-              {% endblock content %}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% block content %}
+  {% endblock content %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

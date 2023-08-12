@@ -1,13 +1,22 @@
 <nav>
   <ul class="nav nav-pills p-1">
     <li class="nav-item ">
-      <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">Clusters</a>
+      <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">
+        <i class="bi bi-hdd-rack me-1"></i>
+        Clusters
+      </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link mx-1 {% if request.resolver_match.url_name == 'images' %}active{% endif %}" href="{% url 'images' %}">Images</a>
+      <a class="nav-link mx-1 {% if request.resolver_match.url_name == 'images' %}active{% endif %}" href="{% url 'images' %}">
+        <i class="bi bi-cloud me-1"></i>
+        Images
+      </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link {% if request.resolver_match.url_name == 'containers' %}active{% endif %}" href="{% url 'containers' %}">Containers</a>
+      <a class="nav-link {% if request.resolver_match.url_name == 'containers' %}active{% endif %}" href="{% url 'containers' %}">
+        <i class="bi bi-box me-1"></i>
+        Containers
+      </a>
     </li>
   </ul>
 </nav>
