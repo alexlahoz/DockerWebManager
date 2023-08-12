@@ -33,9 +33,17 @@ def containers(request):
       }
     )
 
+@login_required
 def pull_image(request):
     with docker_client() as client:
-      client.images.pull(request.POST['image_name'])
+      try:
+        client.images.pull(request.POST['image_name'])
+      except docker.errors.APIError:
+        return render(request, 'clusters/images.html', {
+            'request': request,
+            'error': 'Image does not exist'
+          }
+        )
 
     return redirect('images')
 
