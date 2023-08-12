@@ -1,5 +1,83 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>INDEX</h1>
+<div class="rack-container">
+  <div class="server-rack">
+    {% for i in "123" %}
+      <div class="server">
+        <div class="power-button"></div>
+        <div class="ventilation">
+          <div class="ventilation-row">
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+          </div>
+          <div class="ventilation-row">
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+          </div>
+          <div class="ventilation-row">
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+          </div>
+          <div class="ventilation-row">
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+            <div class="ventilation-hole"></div>
+          </div>
+        </div>
+        <div class="disk-container">
+          <div class="disk">
+            <div class="disk-dot dot-ok"></div>
+          </div>
+          <div class="disk">
+            <div class="disk-dot dot-warning"></div>
+          </div>
+          <div class="disk">
+            <div class="disk-dot dot-danger"></div>
+          </div>
+          <div class="disk">
+            <div class="disk-dot dot-ok"></div>
+          </div>
+          <div class="disk">
+            <div class="disk-dot dot-ok"></div>
+          </div>
+          <div class="disk">
+            <div class="disk-dot dot-warning"></div>
+          </div>
+        </div>
+        <div class="disk-container" style="left: 110px;">
+          <div class="disk">
+            <div class="disk-dot dot-ok"></div>
+          </div>
+          <div class="disk">
+            <div class="disk-dot dot-ok"></div>
+          </div>
+          <div class="disk">
+            <div class="disk-dot dot-danger"></div>
+          </div>
+          <div class="disk">
+            <div class="disk-dot dot-ok"></div>
+          </div>
+          <div class="disk">
+            <div class="disk-dot dot-ok"></div>
+          </div>
+          <div class="disk">
+            <div class="disk-dot dot-ok"></div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
