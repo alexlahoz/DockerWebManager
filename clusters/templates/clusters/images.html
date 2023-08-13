@@ -31,7 +31,13 @@
           {% csrf_token %}
           <div class="input-group mb-3">
             <input type="text" name="image_name" class="form-control me-2" placeholder="alpine:latest">
-            <button class="btn btn-outline-primary" type="submit" id="button-addon2">Pull</button>
+            <button id="btnLoading" class="btn btn-outline-primary" type="submit">Pull</button>
+            <div id="loading" class="d-none">
+              <button class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span class="visually-hidden" role="status">Loading...</span>
+              </button>
+            </div>
           </div>
         </form>
 
@@ -41,5 +47,17 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var btnLoading = document.getElementById("btnLoading");
+    var loadingDiv = document.getElementById("loading");
+
+    btnLoading.addEventListener("click", function() {
+      btnLoading.classList.add("d-none");
+      loadingDiv.classList.remove("d-none");
+    });
+  });
+</script>
 
 {% endblock %}
