@@ -6,13 +6,19 @@
   <title>Docker Web Manager</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   {% load static %}
-  <link rel="stylesheet" href="{% static 'clusters/style.css' %}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{% static 'clusters/docker_not_running.css' %}">
   <link rel="shortcut icon" type="image/png" href="{% static 'clusters/images/docker.png' %}" >
 </head>
 <body class="base-background">
-  {% block content %}
-  {% endblock content %}
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  <div class="container">
+    <div class="content">
+      <div class="empty-state-image">
+        <img src="{% static 'clusters/images/docker_error.png' %}">
+      </div>
+      <h3>Docker is not running.</h3>
+      <h2>Press the next button to return to the previous page when you have started it.</h2>
+      <div onClick="window.history.back()" class="refresh-button">Go back</div>
+    </div>
+  </div>
 </body>
 </html>

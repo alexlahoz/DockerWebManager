@@ -9,43 +9,49 @@ from contextlib import contextmanager
 
 @login_required
 def index(request):
-    return render(request, 'clusters/index.html', {'request': request})
+  return render(request, 'clusters/index.html', {'request': request})
 
 @login_required
 def images(request):
+  try:
     with docker_client() as client:
-        images = client.images.list()
+      images = client.images.list()
+  except:
+    return redirect('docker_not_running')
 
-    return render(request, 'clusters/images.html', {
-        'request': request,
-        'images': images
-      }
-    )
+  return render(request, 'clusters/images.html', {
+      'request': request,
+      'images': images
+    }
+  )
 
 @login_required
 def containers(request):
+  try:
     with docker_client() as client:
-        containers = client.containers.list()
+      containers = client.containers.list()
+  except:
+    return redirect('docker_not_running')
 
-    return render(request, 'clusters/containers.html', {
-        'request': request,
-        'containers': containers
-      }
-    )
+  return render(request, 'clusters/containers.html', {
+      'request': request,
+      'containers': containers
+    }
+  )
 
 @login_required
 def pull_image(request):
-    with docker_client() as client:
-      try:
-        client.images.pull(request.POST['image_name'])
-      except docker.errors.APIError:
-        return render(request, 'clusters/images.html', {
-            'request': request,
-            'error': 'Image does not exist'
-          }
-        )
+  with docker_client() as client:
+    try:
+      client.images.pull(request.POST['image_name'])
+    except docker.errors.APIError:
+      return render(request, 'clusters/images.html', {
+          'request': request,
+          'error': 'Image does not exist'
+        }
+      )
 
-    return redirect('images')
+  return redirect('images')
 
 def signup(request):
     if request.method == 'GET':
@@ -104,7 +110,15 @@ def signin(request):
             login(request, user)
             return redirect('index')
 
+@login_required
+def docker_not_running(request):
+  return render(request, 'clusters/docker_not_running.html', {'request': request})
+
 @contextmanager
 def docker_client():
-    client = docker.from_env()
-    yield client
+  client = docker.from_env()
+  yield client
+
+
+
+

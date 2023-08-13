@@ -1,0 +1,85 @@
+@font-face {
+  font-family: 'CascadiaCode';
+  src: url("fonts/CascadiaCode.ttf");
+  display: swap;
+}
+
+* {
+  font-family: 'CascadiaCode', monospace;
+}
+
+.base-background {
+  background-color: #e9ecef;
+  background-image: url("images/wave1.svg"), url("images/wave2.svg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom, top;
+}
+
+body, html {
+  padding: 0;
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 1.2rem;
+  margin: 0 0 16px 0;
+  color: rgba(0,0,0,.54);
+}
+
+p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.logo img {
+  opacity: .3;
+  margin-bottom: 50px;
+  max-width: 150px;
+}
+
+.container {
+  position: relative;
+  margin: 0 auto;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+  max-width: 600px;
+}
+
+.container .content {
+  padding: 16px;
+}
+
+.empty-state-image img {
+  width: 80%;
+  margin-bottom: 24px;
+}
+
+.refresh-button {
+  background-color: rgb(49, 108, 244);
+  color: #fff;
+  cursor: pointer;
+  padding: 15px 30px;
+  margin-top: 12px;
+  border-radius: 5px;
+  font-size: 1.2em;
+  display: inline-block;
+}
+
+@media all and (max-width: 600px) {
+  body, html {
+    font-size: 14px;
+  }
+
+  .refresh-button {
+    margin: 24px auto;
+  }
+}
