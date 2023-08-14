@@ -44,12 +44,27 @@ def pull_image(request):
   with docker_client() as client:
     try:
       client.images.pull(request.POST['image_name'])
-    except docker.errors.APIError:
-      return render(request, 'clusters/images.html', {
-          'request': request,
-          'error': 'Image does not exist'
-        }
-      )
+    except:
+      redirect('images')
+      # return render(request, 'clusters/images.html', {
+      #     'request': request,
+      #     'error': 'Image does not exist'
+      #   }
+      # )
+
+  return redirect('images')
+
+def remove_image(request, image_id):
+  with get_image(image_id) as image:
+    try:
+      image.remove()
+    except:
+      return redirect('images')
+      # return render(request, 'clusters/images.html', {
+      #     'request': request,
+      #     'error': 'This image is being used by a container'
+      #   }
+      # )
 
   return redirect('images')
 
@@ -119,6 +134,10 @@ def docker_client():
   client = docker.from_env()
   yield client
 
-
+@contextmanager
+def get_image(image_id):
+  client = docker.from_env()
+  image = client.images.get(image_id)
+  yield image
 
 

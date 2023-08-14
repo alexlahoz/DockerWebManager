@@ -16,9 +16,12 @@
         <div class="col h-100">
           <div class="card p-3 h-100 overflow-auto">
             {% for image in images %}
-              {{image.tags}}
-              <br>
-              <br>
+              <div class="card shadow p-2 my-2">
+                <div>
+                  <span class="ms-2">{{image.tags.0}}</span>
+                  <a href="{% url 'remove_image' image.id %}" class="btn btn-sm btn-danger float-end"><i class="bi bi-trash-fill"></i></a>
+                </div>
+              </div>
             {% endfor %}
           </div>
         </div>
