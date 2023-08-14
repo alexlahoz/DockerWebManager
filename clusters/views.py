@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.contrib import messages
 import docker
 from contextlib import contextmanager
 
@@ -26,6 +27,29 @@ def images(request):
   )
 
 @login_required
+def pull_image(request):
+  with docker_client() as client:
+    try:
+      client.images.pull(request.POST['image_name'])
+    except:
+      messages.add_message(request, messages.ERROR, 'Image does not exist')
+      return redirect('images')
+
+  messages.add_message(request, messages.SUCCESS, 'Image pulled successfully')
+
+  return redirect('images')
+
+def remove_image(request, image_id):
+  with get_image(image_id) as image:
+    try:
+      image.remove()
+    except:
+      messages.add_message(request, messages.ERROR, 'Image is in use')
+      return redirect('images')
+
+  return redirect('images')
+
+@login_required
 def containers(request):
   try:
     with docker_client() as client:
@@ -38,35 +62,6 @@ def containers(request):
       'containers': containers
     }
   )
-
-@login_required
-def pull_image(request):
-  with docker_client() as client:
-    try:
-      client.images.pull(request.POST['image_name'])
-    except:
-      redirect('images')
-      # return render(request, 'clusters/images.html', {
-      #     'request': request,
-      #     'error': 'Image does not exist'
-      #   }
-      # )
-
-  return redirect('images')
-
-def remove_image(request, image_id):
-  with get_image(image_id) as image:
-    try:
-      image.remove()
-    except:
-      return redirect('images')
-      # return render(request, 'clusters/images.html', {
-      #     'request': request,
-      #     'error': 'This image is being used by a container'
-      #   }
-      # )
-
-  return redirect('images')
 
 def signup(request):
     if request.method == 'GET':

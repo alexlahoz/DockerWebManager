@@ -19,7 +19,7 @@
               <div class="card shadow p-2 my-2">
                 <div>
                   <span class="ms-2">{{image.tags.0}}</span>
-                  <a href="{% url 'remove_image' image.id %}" class="btn btn-sm btn-danger float-end"><i class="bi bi-trash-fill"></i></a>
+                  <a href="{% url 'remove_image' image.short_id %}" class="btn btn-sm btn-danger float-end"><i class="bi bi-trash-fill"></i></a>
                 </div>
               </div>
             {% endfor %}
@@ -29,7 +29,6 @@
     </div>
     <div class="col-6 h-100">
       <div class="card p-3 h-100">
-
         <form action="{% url 'pull_image' %}", method="POST">
           {% csrf_token %}
           <div class="input-group mb-3">
@@ -43,10 +42,10 @@
             </div>
           </div>
         </form>
-
-        {{error}}
-
       </div>
+    </div>
+    <div class="col-12 mt-3 w-50 m-auto">
+      {% include 'flash_message.html' %}
     </div>
   </div>
 </div>
