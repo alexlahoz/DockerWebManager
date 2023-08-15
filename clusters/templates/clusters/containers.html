@@ -16,8 +16,11 @@
         <div class="col h-100">
           <div class="card p-3 h-100 overflow-auto">
             {% for container in containers %}
-              {{container.name}}
-              <br>
+            <div class="card shadow p-2 my-2">
+              <div>
+                <span class="ms-2">{{container.name}}</span>
+              </div>
+            </div>
             {% endfor %}
           </div>
         </div>

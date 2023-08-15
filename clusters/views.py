@@ -53,7 +53,7 @@ def remove_image(request, image_id):
 def containers(request):
   try:
     with docker_client() as client:
-      containers = client.containers.list()
+      containers = client.containers.list(all=True)
   except:
     return redirect('docker_not_running')
 
