@@ -9,6 +9,7 @@ urlpatterns = [
     path("images/pull_image/", views.pull_image, name="pull_image"),
     path("images/<str:image_id>/remove/", views.remove_image, name="remove_image"),
     path("containers/", views.containers, name="containers"),
+    path("containers/console/<str:container_id>", views.container_console, name="container_console"),
     path("docker_not_running/", views.docker_not_running, name="docker_not_running"),
     path("signup/", views.signup, name="signup"),
     path("logout/", views.signout, name="logout"),

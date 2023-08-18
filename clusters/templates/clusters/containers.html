@@ -19,6 +19,7 @@
             <div class="card shadow p-2 my-2">
               <div>
                 <span class="ms-2">{{container.name}}</span>
+                <a href="{% url 'container_console' container.short_id %}" class="btn btn-light border float-end" target="_blank"><i class="bi bi-terminal-fill"></i></a>
               </div>
             </div>
             {% endfor %}
