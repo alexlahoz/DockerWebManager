@@ -5,7 +5,10 @@
   <div class="h-100">
     <div class="d-flex justify-content-center align-items-center h-100">
       <div class="p-2" style="width: 460px;">
-        <div class="rounded-custom bg-custom">
+        <div class="rounded-custom card shadow" style="
+            background: hsla(0, 0%, 100%, 0.7);
+            backdrop-filter: blur(10px);
+          ">
           <div class="card-body p-5">
             <form action="/signin/", method="POST" class="form-signin text-center">
                 {% csrf_token %}
@@ -17,12 +20,23 @@
                   <input type="password" class="form-control" id="floatingPassword" name="password" required placeholder="Password">
                   <label for="floatingPassword">Password</label>
                 </div>
-                <button class="w-100 btn btn-lg btn-light" type="submit">
+                <button class="w-100 btn btn-lg btn-primary" type="submit">
                   Sign in
                 </button>
 
                 {{error}}
             </form>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="rounded-custom card shadow mt-3 w-75" style="
+              background: hsla(0, 0%, 100%, 0.7);
+              backdrop-filter: blur(10px);
+            ">
+            <div class="card-body text-center p-3">
+              New here? <a href="/signup" class="link-underline link-underline-opacity-0">Create an account.</a>
+            </div>
           </div>
         </div>
       </div>
