@@ -8,6 +8,11 @@
   font-family: 'CascadiaCode', monospace;
 }
 
+div::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
 /* html,
 body,
 body > div:first-child,

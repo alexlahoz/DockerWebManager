@@ -17,9 +17,9 @@
           <div class="card p-3 h-100 overflow-auto">
             {% for image in images %}
               <div class="card shadow p-2 my-2">
-                <div>
+                <div class="d-flex align-items-center justify-content-between">
                   <span class="ms-2">{{image.tags.0}}</span>
-                  <a href="{% url 'remove_image' image.short_id %}" class="btn btn-sm btn-danger float-end"><i class="bi bi-trash-fill"></i></a>
+                  <a href="{% url 'remove_image' image.short_id %}" class="btn btn-light"><i class="bi bi-trash-fill text-danger"></i></a>
                 </div>
               </div>
             {% endfor %}
