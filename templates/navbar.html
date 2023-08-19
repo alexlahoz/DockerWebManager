@@ -7,15 +7,15 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link mx-1 {% if request.resolver_match.url_name == 'images' %}active{% endif %}" href="{% url 'images' %}">
-        <i class="bi bi-cloud me-1"></i>
-        Images
+      <a class="nav-link mx-1 {% if request.resolver_match.url_name == 'containers' %}active{% endif %}" href="{% url 'containers' %}">
+        <i class="bi bi-box me-1"></i>
+        Containers
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link {% if request.resolver_match.url_name == 'containers' %}active{% endif %}" href="{% url 'containers' %}">
-        <i class="bi bi-box me-1"></i>
-        Containers
+      <a class="nav-link {% if request.resolver_match.url_name == 'images' %}active{% endif %}" href="{% url 'images' %}">
+        <i class="bi bi-cloud me-1"></i>
+        Images
       </a>
     </li>
   </ul>
