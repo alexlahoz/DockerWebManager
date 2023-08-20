@@ -74,7 +74,26 @@ def container_console(request, container_id):
     }
   )
 
+@login_required
+def start_container(request, container_id):
+  with docker_client() as client:
+    container = client.containers.get(container_id)
+    container.start()
+
+  return redirect('containers')
+
+@login_required
+def stop_container(request, container_id):
+  with docker_client() as client:
+    container = client.containers.get(container_id)
+    container.stop()
+
+  return redirect('containers')
+
 def signup(request):
+    if request.user.is_authenticated:
+      return redirect('index')
+
     if request.method == 'GET':
         return render(request, 'signup.html',
             {'form': UserCreationForm}
@@ -111,6 +130,9 @@ def signout(request):
     return redirect('index')
 
 def signin(request):
+    if request.user.is_authenticated:
+      return redirect('index')
+
     if request.method == 'GET':
         return render(request, 'signin.html', {
             'form': AuthenticationForm
