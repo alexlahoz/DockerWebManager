@@ -5,8 +5,9 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.contrib import messages
-import docker
 from contextlib import contextmanager
+import docker
+import threading
 
 @login_required
 def index(request):
@@ -86,7 +87,18 @@ def start_container(request, container_id):
 def stop_container(request, container_id):
   with docker_client() as client:
     container = client.containers.get(container_id)
-    container.stop()
+    t = threading.Thread(target=container.stop)
+    t.start()
+
+  return redirect('containers')
+
+def remove_container(request, container_id):
+  with get_container(container_id) as container:
+    try:
+      container.remove()
+    except:
+      messages.add_message(request, messages.ERROR, 'container is in use')
+      return redirect('containers')
 
   return redirect('containers')
 
@@ -167,5 +179,11 @@ def get_image(image_id):
   client = docker.from_env()
   image = client.images.get(image_id)
   yield image
+
+@contextmanager
+def get_container(container_id):
+  client = docker.from_env()
+  container = client.containers.get(container_id)
+  yield container
 
 
