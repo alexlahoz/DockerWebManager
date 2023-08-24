@@ -92,6 +92,7 @@ def stop_container(request, container_id):
 
   return redirect('containers')
 
+@login_required
 def remove_container(request, container_id):
   with get_container(container_id) as container:
     try:
@@ -101,6 +102,21 @@ def remove_container(request, container_id):
       return redirect('containers')
 
   return redirect('containers')
+
+def container_detail(request, container_id):
+  try:
+    with docker_client() as client:
+      containers = client.containers.list(all=True)
+  except:
+    return redirect('docker_not_running')
+
+  with get_container(container_id) as container_data:
+    return render(request, 'clusters/containers.html', {
+        'request': request,
+        'containers': containers,
+        'container_data': container_data
+      }
+    )
 
 def signup(request):
     if request.user.is_authenticated:
@@ -185,5 +201,3 @@ def get_container(container_id):
   client = docker.from_env()
   container = client.containers.get(container_id)
   yield container
-
-

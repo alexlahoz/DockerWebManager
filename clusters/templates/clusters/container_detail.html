@@ -1,0 +1,14 @@
+<ul>
+    <li>id: {{ container_data.id }}</li>
+    <li>name: {{ container_data.name }}</li>
+    <li>status: {{ container_data.status }}</li>
+    <li>image: {{ container_data.image }}</li>
+    <li>labels: {{ container_data.labels }}</li>
+    <li>ports: {{ container_data.ports }}</li>
+    <li>short_id: {{ container_data.short_id }}</li>
+    {% comment %} <li>attrs: {{ container_data.attrs }}</li> {% endcomment %}
+    {% comment %} <li>logs: {{ container_data.logs }}</li> {% endcomment %}
+    {% comment %} <li>stats: {{ container_data.stats(stream=False) }}</li> {% endcomment %}
+    <li>commit: {{ container_data.commit }}</li>
+    <li>client: {{ container_data.client }}</li>
+</ul>

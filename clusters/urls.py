@@ -13,6 +13,7 @@ urlpatterns = [
     path("containers/stop_container/<str:container_id>", views.stop_container, name="stop_container"),
     path("containers/remove/<str:container_id>/", views.remove_container, name="remove_container"),
     path("containers/console/<str:container_id>", views.container_console, name="container_console"),
+    path("containers/detail/<str:container_id>", views.container_detail, name="container_detail"),
     path("docker_not_running/", views.docker_not_running, name="docker_not_running"),
     path("signup/", views.signup, name="signup"),
     path("logout/", views.signout, name="logout"),
