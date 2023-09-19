@@ -96,6 +96,8 @@
   let socket = new WebSocket(url);
 
   socket.onmessage = function(e) {
+    let data = JSON.parse(e.data);
+
     let total_cpu_percentage = document.getElementById('total_cpu_percentage')
     total_cpu_percentage.innerHTML = `${data['total_cpu_percent']}%`;
     let circle_total_cpu_percentage = document.getElementsByClassName('circle_total_cpu_percentage')
