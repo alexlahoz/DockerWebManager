@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
+<div class="container-xl d-flex align-items-center justify-content-center" style="height: 100vh;">
   <div class="row w-100 h-75">
-    <div class="col-6 h-100">
+    <div class="col-12 col-md-6 h-100">
       <div class="row" style="height: 14%;">
         <div class="col d-flex justify-content-center align-items-center">
           <div class="card">
@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="col-6 h-100">
+    <div class="col-12 col-md-6 h-100">
       <div class="card p-3 h-100">
         {% if container_data %}
           {% include 'clusters/container_detail.html' %}

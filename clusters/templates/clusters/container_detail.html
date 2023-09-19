@@ -1,4 +1,81 @@
-<ul>
+<div class="row">
+  <div class="col p-0">
+    <div class="single-chart d-inline">
+      <svg viewBox="0 0 36 36" class="circular-chart orange">
+        <path class="circle-bg"
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path class="circle circle_total_cpu_percentage"
+          stroke-dasharray="0, 100"
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <text x="18" y="20.35" class="percentage" id="total_cpu_percentage">0%</text>
+      </svg>
+    </div>
+  </div>
+  <div class="col p-0">
+    <div class="single-chart d-inline">
+      <svg viewBox="0 0 36 36" class="circular-chart blue">
+        <path class="circle-bg"
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path class="circle circle_container_cpu_percentage"
+          stroke-dasharray="0, 100"
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <text x="18" y="20.35" class="percentage" id="container_cpu_percentage">0%</text>
+      </svg>
+    </div>
+  </div>
+  <div class="col p-0">
+    <div class="single-chart d-inline">
+      <svg viewBox="0 0 36 36" class="circular-chart purple">
+        <path class="circle-bg"
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path class="circle"
+          stroke-dasharray="0, 100"
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <text x="18" y="20.35" class="percentage" id="percentage">0%</text>
+      </svg>
+    </div>
+  </div>
+  <div class="col p-0">
+    <div class="single-chart d-inline">
+      <svg viewBox="0 0 36 36" class="circular-chart green">
+        <path class="circle-bg"
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path class="circle"
+          stroke-dasharray="0, 100"
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <text x="18" y="20.35" class="percentage" id="percentage">0%</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+
+
+{% comment %} <ul>
     <li>id: {{ container_data.id }}</li>
     <li>name: {{ container_data.name }}</li>
     <li>status: {{ container_data.status }}</li>
@@ -6,9 +83,31 @@
     <li>labels: {{ container_data.labels }}</li>
     <li>ports: {{ container_data.ports }}</li>
     <li>short_id: {{ container_data.short_id }}</li>
-    {% comment %} <li>attrs: {{ container_data.attrs }}</li> {% endcomment %}
-    {% comment %} <li>logs: {{ container_data.logs }}</li> {% endcomment %}
-    {% comment %} <li>stats: {{ container_data.stats(stream=False) }}</li> {% endcomment %}
     <li>commit: {{ container_data.commit }}</li>
     <li>client: {{ container_data.client }}</li>
-</ul>
+</ul> {% endcomment %}
+
+<script>
+  let protocol = 'ws://';
+  let port = location.port ? `:${location.port}` : '';
+  let container_id = location.pathname.split('/').pop();
+
+  let url = `${protocol}${location.hostname}${port}/containers/detail/${container_id}/`;
+  let socket = new WebSocket(url);
+
+  socket.onmessage = function(e) {
+    let total_cpu_percentage = document.getElementById('total_cpu_percentage')
+    total_cpu_percentage.innerHTML = `${data['total_cpu_percent']}%`;
+    let circle_total_cpu_percentage = document.getElementsByClassName('circle_total_cpu_percentage')
+    circle_total_cpu_percentage[0].style.strokeDasharray = `${data['total_cpu_percent']}, 100`
+    circle_total_cpu_percentage[0].style.animation = `animate ${data['total_cpu_percent']} linear`
+
+
+    let container_cpu_percentage = document.getElementById('container_cpu_percentage')
+    container_cpu_percentage.innerHTML = `${data['container_cpu_percentage']}%`;
+    let circle_container_cpu_percentage = document.getElementsByClassName('circle_container_cpu_percentage')
+    circle_container_cpu_percentage[0].style.strokeDasharray = `${data['container_cpu_percentage']}, 100`
+    circle_container_cpu_percentage[0].style.animation = `animate ${data['container_cpu_percentage']} linear`
+
+  };
+</script>

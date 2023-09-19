@@ -1,7 +1,7 @@
 from channels.generic.websocket import WebsocketConsumer
-import docker
-import threading
-import logging
+import docker, threading, logging, json, math
+# from random import randint
+# from time import sleep
 
 logger = logging.getLogger('django')
 
@@ -45,3 +45,38 @@ class CommandConsumer(WebsocketConsumer):
             if b[1]:
                 self.send(text_data=b[1].decode('utf-8'))
         logger.info('asdf')
+
+class DetailConsumer(WebsocketConsumer):
+  def connect(self):
+    self.container_id = self.scope['url_route']['kwargs']['cid']
+    self.accept()
+    self.client=docker.APIClient()
+    client = docker.from_env()
+    container = client.containers.get(self.container_id)
+
+    for stats in container.stats(stream=True, decode=True):
+        total_usage = stats['cpu_stats']['cpu_usage']['total_usage'] - stats['precpu_stats']['cpu_usage']['total_usage']
+        online_cpus = stats['cpu_stats']['online_cpus']
+
+        total_cpu_percent = round((total_usage / (online_cpus * 1e9)) * 100, 2)
+        container_cpu_percentage = total_cpu_percent * online_cpus
+
+        self.send(json.dumps(
+            {
+              'total_cpu_percent': total_cpu_percent,
+              'container_cpu_percentage': container_cpu_percentage,
+            }
+          )
+        )
+
+  def disconnect(self, close_code):
+    self.stop_thread=True
+    self.socket._sock.send('stop\r\n'.encode('utf-8'))
+
+    self.socket.close()
+
+    # self.client.stop(self.container_id)
+    self.client.wait(self.container_id)
+    self.client.remove_container(self.container_id)
+
+    self.client.close()

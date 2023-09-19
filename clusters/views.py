@@ -114,7 +114,7 @@ def container_detail(request, container_id):
     return render(request, 'clusters/containers.html', {
         'request': request,
         'containers': containers,
-        'container_data': container_data
+        'container_data': container_data,
       }
     )
 
