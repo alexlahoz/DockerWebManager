@@ -43,31 +43,13 @@
             a 15.9155 15.9155 0 0 1 0 31.831
             a 15.9155 15.9155 0 0 1 0 -31.831"
         />
-        <path class="circle"
+        <path class="circle circle_memory_percentage"
           stroke-dasharray="0, 100"
           d="M18 2.0845
             a 15.9155 15.9155 0 0 1 0 31.831
             a 15.9155 15.9155 0 0 1 0 -31.831"
         />
-        <text x="18" y="20.35" class="percentage" id="percentage">0%</text>
-      </svg>
-    </div>
-  </div>
-  <div class="col p-0">
-    <div class="single-chart d-inline">
-      <svg viewBox="0 0 36 36" class="circular-chart green">
-        <path class="circle-bg"
-          d="M18 2.0845
-            a 15.9155 15.9155 0 0 1 0 31.831
-            a 15.9155 15.9155 0 0 1 0 -31.831"
-        />
-        <path class="circle"
-          stroke-dasharray="0, 100"
-          d="M18 2.0845
-            a 15.9155 15.9155 0 0 1 0 31.831
-            a 15.9155 15.9155 0 0 1 0 -31.831"
-        />
-        <text x="18" y="20.35" class="percentage" id="percentage">0%</text>
+        <text x="18" y="20.35" class="percentage" id="memory_percentage">0%</text>
       </svg>
     </div>
   </div>
@@ -99,17 +81,24 @@
     let data = JSON.parse(e.data);
 
     let total_cpu_percentage = document.getElementById('total_cpu_percentage')
-    total_cpu_percentage.innerHTML = `${data['total_cpu_percent']}%`;
+    total_cpu_percentage.innerHTML = `${data['total_cpu_percentage']}%`;
     let circle_total_cpu_percentage = document.getElementsByClassName('circle_total_cpu_percentage')
-    circle_total_cpu_percentage[0].style.strokeDasharray = `${data['total_cpu_percent']}, 100`
-    circle_total_cpu_percentage[0].style.animation = `animate ${data['total_cpu_percent']} linear`
+    circle_total_cpu_percentage[0].style.strokeDasharray = `${data['total_cpu_percentage']}, 100`
+    circle_total_cpu_percentage[0].style.animation = `animate ${data['total_cpu_percentage']} linear`
 
 
     let container_cpu_percentage = document.getElementById('container_cpu_percentage')
     container_cpu_percentage.innerHTML = `${data['container_cpu_percentage']}%`;
     let circle_container_cpu_percentage = document.getElementsByClassName('circle_container_cpu_percentage')
-    circle_container_cpu_percentage[0].style.strokeDasharray = `${data['container_cpu_percentage']}, 100`
-    circle_container_cpu_percentage[0].style.animation = `animate ${data['container_cpu_percentage']} linear`
+    circle_container_cpu_percentage[0].style.strokeDasharray = `${data['container_cpu_percentage'] / 4}, 100`
+    circle_container_cpu_percentage[0].style.animation = `animate ${data['container_cpu_percentage'] / 4} linear`
+
+
+    let memory_percentage = document.getElementById('memory_percentage')
+    memory_percentage.innerHTML = `${data['memory_percentage']}%`;
+    let circle_memory_percentage = document.getElementsByClassName('circle_memory_percentage')
+    circle_memory_percentage[0].style.strokeDasharray = `${data['memory_percentage']}, 100`
+    circle_memory_percentage[0].style.animation = `animate ${data['memory_percentage']} linear`
 
   };
 </script>
