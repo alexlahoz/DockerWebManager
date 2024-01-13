@@ -7,13 +7,13 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link mx-1 {% if request.resolver_match.url_name == 'containers' or request.resolver_match.url_name == 'container_detail' %}active{% endif %}" href="{% url 'containers' %}">
+      <a class="nav-link mx-1 {% if request.resolver_match.url_name == 'containers' or request.resolver_match.url_name == 'container_detail'  or request.resolver_match.url_name == 'create_container' %}active{% endif %}" href="{% url 'containers' %}">
         <i class="bi bi-box me-1"></i>
         Containers
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link {% if request.resolver_match.url_name == 'images' %}active{% endif %}" href="{% url 'images' %}">
+      <a class="nav-link {% if request.resolver_match.url_name == 'images' or request.resolver_match.url_name == 'image_detail' %}active{% endif %}" href="{% url 'images' %}">
         <i class="bi bi-cloud me-1"></i>
         Images
       </a>

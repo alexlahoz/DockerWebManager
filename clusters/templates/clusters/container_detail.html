@@ -1,5 +1,11 @@
+<a href="{% url 'containers' %}" class="link-underline link-underline-opacity-0 mb-3"><i class="bi bi-caret-left-fill"></i> Containers</a>
+
+
+<h4 class="mb-4">{{container_data.name}}</h4>
+
 <div class="row">
   <div class="col p-0">
+    total cpu
     <div class="single-chart d-inline">
       <svg viewBox="0 0 36 36" class="circular-chart orange">
         <path class="circle-bg"
@@ -17,7 +23,9 @@
       </svg>
     </div>
   </div>
+
   <div class="col p-0">
+    container cpu
     <div class="single-chart d-inline">
       <svg viewBox="0 0 36 36" class="circular-chart blue">
         <path class="circle-bg"
@@ -36,6 +44,7 @@
     </div>
   </div>
   <div class="col p-0">
+    memory
     <div class="single-chart d-inline">
       <svg viewBox="0 0 36 36" class="circular-chart purple">
         <path class="circle-bg"
@@ -57,9 +66,8 @@
 
 
 
-{% comment %} <ul>
-    <li>id: {{ container_data.id }}</li>
-    <li>name: {{ container_data.name }}</li>
+<ul>
+    <li>id: {{ container_data.short_id }}</li>
     <li>status: {{ container_data.status }}</li>
     <li>image: {{ container_data.image }}</li>
     <li>labels: {{ container_data.labels }}</li>
@@ -67,7 +75,7 @@
     <li>short_id: {{ container_data.short_id }}</li>
     <li>commit: {{ container_data.commit }}</li>
     <li>client: {{ container_data.client }}</li>
-</ul> {% endcomment %}
+</ul>
 
 <script>
   let protocol = 'ws://';

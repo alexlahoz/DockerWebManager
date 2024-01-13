@@ -18,9 +18,14 @@
             {% for container in containers %}
             <div class="card shadow p-2 my-2">
               <div class="d-flex align-items-center justify-content-between">
-                <a href="{% url 'container_detail' container.short_id %}">
-                  <span class="ms-2">{{container.name}}</span>
-                </a>
+                <div class="ms-2">
+                  <i class="bi bi-ubuntu"></i>
+
+
+                  <a href="{% url 'container_detail' container.short_id %}">
+                    <span class="">{{container.name}}</span>
+                  </a>
+                </div>
                 <div class="btn-toolbar">
                   <a href="{% url 'container_console' container.short_id %}" class="btn btn-light ms-1 {% if container.status == "exited" %}disabled{% endif %}" target="_blank"><i class="bi bi-terminal-fill"></i></a>
                   {% if container.status == "exited" %}
@@ -38,9 +43,15 @@
       </div>
     </div>
     <div class="col-12 col-md-6 h-100">
-      <div class="card p-3 h-100">
-        {% if container_data %}
+      <div class="card p-3 h-100 p-4">
+        {% if request.resolver_match.url_name == "container_detail" %}
           {% include 'clusters/container_detail.html' %}
+        {% else %}
+          <h4 class="mb-4">Containers</h4>
+
+          <div class="btn-toolbar">
+            <a href="{% url 'create_container' %}" class="btn btn-primary">Create container</a>
+          </div>
         {% endif %}
       </div>
     </div>

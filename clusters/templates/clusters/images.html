@@ -18,10 +18,14 @@
             {% for image in images %}
               <div class="card shadow p-2 my-2">
                 <div class="d-flex align-items-center justify-content-between">
-                  <span class="ms-2">{{image.tags.0}}</span>
+                  <a href="{% url 'image_detail' image.short_id %}">
+                    <span class="ms-2">{{image.tags.0}}</span>
+                  </a>
                   <a href="{% url 'remove_image' image.short_id %}" class="btn btn-light"><i class="bi bi-trash-fill text-danger"></i></a>
                 </div>
               </div>
+
+
             {% endfor %}
           </div>
         </div>
@@ -29,19 +33,24 @@
     </div>
     <div class="col-6 h-100">
       <div class="card p-3 h-100">
-        <form action="{% url 'pull_image' %}", method="POST">
-          {% csrf_token %}
-          <div class="input-group mb-3">
-            <input type="text" name="image_name" class="form-control me-2" placeholder="alpine:latest">
-            <button id="btnLoading" class="btn btn-outline-primary" type="submit">Pull</button>
-            <div id="loading" class="d-none">
-              <button class="btn btn-primary" type="button" disabled>
-                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                <span class="visually-hidden" role="status">Loading...</span>
-              </button>
+        {% if request.resolver_match.url_name == "image_detail" %}
+          {% include 'clusters/image_detail.html' %}
+        {% else %}
+          <h4 class="mb-4">Images</h4>
+          <form action="{% url 'pull_image' %}", method="POST">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+              <input type="text" name="image_name" class="form-control me-2" placeholder="alpine:latest">
+              <button id="btnLoading" class="btn btn-outline-primary" type="submit">Pull</button>
+              <div id="loading" class="d-none">
+                <button class="btn btn-primary" type="button" disabled>
+                  <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                  <span class="visually-hidden" role="status">Loading...</span>
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        {% endif %}
       </div>
     </div>
     <div class="col-12 mt-3 w-50 m-auto">

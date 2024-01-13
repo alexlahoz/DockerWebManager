@@ -27,6 +27,21 @@ def images(request):
     }
   )
 
+def image_detail(request, image_id):
+  try:
+    with docker_client() as client:
+      images = client.images.list(filters={'dangling': False})
+  except:
+    return redirect('docker_not_running')
+
+  with get_image(image_id) as image_data:
+    return render(request, 'clusters/images.html', {
+        'request': request,
+        'images': images,
+        'image_data': image_data,
+      }
+    )
+
 @login_required
 def pull_image(request):
   with docker_client() as client:
@@ -82,6 +97,20 @@ def start_container(request, container_id):
     container.start()
 
   return redirect('containers')
+
+@login_required
+def create_container(request):
+  try:
+    with docker_client() as client:
+      containers = client.containers.list(all=True)
+  except:
+    return redirect('docker_not_running')
+
+  return render(request, 'clusters/containers.html', {
+      'request': request,
+      'containers': containers
+    }
+  )
 
 @login_required
 def stop_container(request, container_id):
