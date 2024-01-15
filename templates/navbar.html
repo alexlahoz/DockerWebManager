@@ -2,19 +2,19 @@
   <ul class="nav nav-pills p-1">
     <li class="nav-item ">
       <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">
-        <i class="bi bi-hdd-rack me-1"></i>
+        <i class="bi bi-hdd-rack"></i>
         Clusters
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link mx-1 {% if request.resolver_match.url_name == 'containers' or request.resolver_match.url_name == 'container_detail' or request.resolver_match.url_name == 'new_container' %}active{% endif %}" href="{% url 'containers' %}">
-        <i class="bi bi-box me-1"></i>
+        <i class="bi bi-box-fill"></i>
         Containers
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link {% if request.resolver_match.url_name == 'images' or request.resolver_match.url_name == 'image_detail' %}active{% endif %}" href="{% url 'images' %}">
-        <i class="bi bi-cloud me-1"></i>
+        <i class="bi bi-box"></i>
         Images
       </a>
     </li>
