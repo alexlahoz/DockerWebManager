@@ -10,6 +10,7 @@ urlpatterns = [
     path("images/detail/<str:image_id>", views.image_detail, name="image_detail"),
     path("images/remove/<str:image_id>/", views.remove_image, name="remove_image"),
     path("containers/", views.containers, name="containers"),
+    path("containers/new/", views.new_container, name="new_container"),
     path("containers/create/", views.create_container, name="create_container"),
     path("containers/start_container/<str:container_id>", views.start_container, name="start_container"),
     path("containers/stop_container/<str:container_id>", views.stop_container, name="stop_container"),

@@ -1,0 +1,20 @@
+<a href="{% url 'containers' %}" class="link-underline link-underline-opacity-0 mb-3"><i class="bi bi-caret-left-fill"></i> Containers</a>
+
+
+<form action="{% url 'create_container' %}" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="image_name">Image name</label>
+    <input type="text" id="image_name" name="image_name" class="form-control mt-1" placeholder="ubuntu:latest">
+
+    <label for="command" class="mt-3">Command</label>
+    <input type="text" id="command" name="command" class="form-control mt-1" placeholder="/bin/bash">
+
+    <label for="kwargs" class="mt-3">Key arguments (kwargs):</label>
+    <input type="text" id="kwargs" name="kwargs" class="form-control mt-1" placeholder="kwargs">
+  </div>
+
+  <div class="float-end mt-3">
+    <button type="submit" class="btn btn-primary">Create</button>
+  </div>
+</form>

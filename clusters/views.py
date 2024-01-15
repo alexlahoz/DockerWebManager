@@ -99,7 +99,7 @@ def start_container(request, container_id):
   return redirect('containers')
 
 @login_required
-def create_container(request):
+def new_container(request):
   try:
     with docker_client() as client:
       containers = client.containers.list(all=True)
@@ -111,6 +111,18 @@ def create_container(request):
       'containers': containers
     }
   )
+
+def create_container(request):
+  try:
+    with docker_client() as client:
+      client.containers.run(request.POST['image_name'], request.POST['command'], detach=True)
+      # client.containers.run(request.POST['image_name'], request.POST['command'], request.POST['kwargs'])
+  except:
+    messages.add_message(request, messages.ERROR, 'The request could not be processed')
+    return redirect('containers')
+
+  messages.add_message(request, messages.SUCCESS, 'Container successfully created')
+  return redirect('containers')
 
 @login_required
 def stop_container(request, container_id):
@@ -140,10 +152,15 @@ def container_detail(request, container_id):
     return redirect('docker_not_running')
 
   with get_container(container_id) as container_data:
+    finished_at_date = container_data.attrs['State']['FinishedAt'][:10]
+    finished_at_time = container_data.attrs['State']['FinishedAt'][11:19]
+    finished_at = calculate_time_difference(finished_at_date, finished_at_time)
+
     return render(request, 'clusters/containers.html', {
         'request': request,
         'containers': containers,
         'container_data': container_data,
+        'finished_at': finished_at
       }
     )
 
@@ -212,7 +229,12 @@ def signin(request):
 
 @login_required
 def docker_not_running(request):
-  return render(request, 'clusters/docker_not_running.html', {'request': request})
+  try:
+    with docker_client() as client:
+      client.ping()
+      return redirect('index')
+  except:
+    return render(request, 'clusters/docker_not_running.html', {'request': request})
 
 @contextmanager
 def docker_client():
@@ -230,3 +252,31 @@ def get_container(container_id):
   client = docker.from_env()
   container = client.containers.get(container_id)
   yield container
+
+from datetime import datetime
+
+def calculate_time_difference(date, time):
+    # Convert the date and time string to a datetime object
+    datetime_input = datetime.strptime(f'{date} {time}', '%Y-%m-%d %H:%M:%S')
+
+    # Get the current date and time
+    now = datetime.now()
+
+    # Calculate the time difference
+    time_difference = now - datetime_input
+
+    # Calculate days, hours, and minutes
+    days = time_difference.days
+    hours, seconds = divmod(time_difference.seconds, 3600)
+    minutes, _ = divmod(seconds, 60)
+
+    # Determine how to display the time difference
+    if days > 0:
+        result = f'{days} days ago'
+    elif hours > 0:
+        result = f'{hours} hours ago'
+    else:
+        result = f'{minutes} minutes ago'
+
+    return result
+

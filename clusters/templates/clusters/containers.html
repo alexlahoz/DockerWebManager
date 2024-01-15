@@ -20,8 +20,6 @@
               <div class="d-flex align-items-center justify-content-between">
                 <div class="ms-2">
                   <i class="bi bi-ubuntu"></i>
-
-
                   <a href="{% url 'container_detail' container.short_id %}">
                     <span class="">{{container.name}}</span>
                   </a>
@@ -46,14 +44,20 @@
       <div class="card p-3 h-100 p-4">
         {% if request.resolver_match.url_name == "container_detail" %}
           {% include 'clusters/container_detail.html' %}
+        {% elif request.resolver_match.url_name == "new_container" %}
+          {% include 'clusters/new_container.html' %}
         {% else %}
           <h4 class="mb-4">Containers</h4>
 
           <div class="btn-toolbar">
-            <a href="{% url 'create_container' %}" class="btn btn-primary">Create container</a>
+            <a href="{% url 'new_container' %}" class="btn btn-primary">New container</a>
           </div>
         {% endif %}
       </div>
+    </div>
+
+    <div class="col-12 mt-3 w-50 m-auto">
+      {% include 'flash_message.html' %}
     </div>
   </div>
 </div>
