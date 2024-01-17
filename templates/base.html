@@ -53,6 +53,24 @@
 
       xhr.send();
     }
+
+    function copyToClipboard(iconElement) {
+      let container = iconElement.closest('.clipboard-container')
+
+      let textToCopy = container.getAttribute('data-short-id')
+
+      let tempTextArea = document.createElement('textarea')
+      tempTextArea.value = textToCopy
+      document.body.appendChild(tempTextArea)
+
+      tempTextArea.select()
+      document.execCommand('copy')
+
+      document.body.removeChild(tempTextArea)
+
+      let icon = container.querySelector('.clipboard-icon')
+      icon.className = 'bi bi-clipboard-check'
+    }
  </script>
 </body>
 </html>
