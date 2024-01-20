@@ -5,7 +5,19 @@
 
 <div class="overflow-auto">
   <ul>
+    <li>
+      Architecture: {{ image_data.attrs.Architecture }}
+    </li>
     <li>id: {{ image_data.short_id }}</li>
+    <li>
+      CMD: {{ image_data.attrs.Config.Cmd }}
+    </li>
+    <li>
+      Env vars:
+      <pre>{{ image_data.attrs.Config.Env|pprint }}</pre>
+    </li>
+
     <pre>{{ image_data.attrs|pprint }}</pre>
+
   </ul>
 </div>
