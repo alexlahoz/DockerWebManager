@@ -2,12 +2,13 @@
 
 {% block content %}
 
-<div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
-  <div class="row w-100 h-75">
-    <div class="col-12 col-md-6 h-100">
-      <div class="row" style="height: 86%;">
+<div class="container d-flex justify-content-center" style="height: 80vh;">
+  <div class="row w-100 h-100">
+    <div class="col-lg-6 col-sm-12 h-100 mt-3">
+      <div class="row" style="height: 100%;">
         <div class="col h-100">
-          <div class="card p-3 h-100 overflow-auto">
+          <div class="card p-3 h-100 overflow-auto shadow">
+            <h4 class="mb-4">Containers</h4>
             {% for container in containers %}
             <div class="card shadow p-2 my-2">
               <div class="d-flex align-items-center justify-content-between">
@@ -36,22 +37,19 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-6 h-100">
+    <div class="col-lg-6 col-sm-12 h-100 mt-3">
       <div class="card p-3 h-100 p-4">
         {% if request.resolver_match.url_name == "container_detail" %}
           {% include 'clusters/container_detail.html' %}
         {% elif request.resolver_match.url_name == "new_container" %}
           {% include 'clusters/new_container.html' %}
         {% else %}
-          <h4 class="mb-4">Containers</h4>
-
           <div class="btn-toolbar">
             <a href="{% url 'new_container' %}" class="btn btn-primary">New container</a>
           </div>
         {% endif %}
       </div>
     </div>
-
     <div class="col-12 mt-3 w-50 m-auto">
       {% include 'flash_message.html' %}
     </div>

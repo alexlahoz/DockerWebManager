@@ -56,32 +56,38 @@ a {
 }
 
 .card {
-  border: none !important;
-  border-radius: 0.8rem !important;
+  border: none;
+  border-radius: 0.8rem;
 }
 
 .card-footer {
-  border: none !important;
+  border: none;
 }
 
 .card-header {
-  border: none !important;
+  border: none;
 }
 
 .btn {
-  border-radius: 0.6rem !important;
+  border-radius: 0.6rem;
 }
 
 .btn-secondary.active {
-  background-color: #dee2e6 !important;
+  background-color: #dee2e6;
 }
 
 .form-control {
-  border-radius: 0.6rem !important;
+  border-radius: 0.6rem;
 }
 
 .rounded-custom {
   border-radius: 0.6rem;
+}
+
+.hover-primary:hover {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
 }
 
 .bg-custom {

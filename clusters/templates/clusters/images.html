@@ -2,12 +2,13 @@
 
 {% block content %}
 
-<div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
-  <div class="row w-100 h-75">
-    <div class="col-6 h-100">
-      <div class="row" style="height: 86%;">
+<div class="container d-flex justify-content-center" style="height: 80vh;">
+  <div class="row w-100 h-100">
+    <div class="col-lg-6 col-sm-12 h-100 mt-3">
+      <div class="row" style="height: 100%;">
         <div class="col h-100">
-          <div class="card p-3 h-100 overflow-auto">
+          <div class="card p-3 h-100 overflow-auto shadow">
+            <h4 class="mb-4">Images</h4>
             {% for image in images %}
               <div class="card shadow p-2 my-2">
                 <div class="d-flex align-items-center justify-content-between">
@@ -25,12 +26,12 @@
         </div>
       </div>
     </div>
-    <div class="col-6 h-100">
+
+    <div class="col-lg-6 col-sm-12 h-100 mt-3">
       <div class="card p-3 h-100">
         {% if request.resolver_match.url_name == "image_detail" %}
           {% include 'clusters/image_detail.html' %}
         {% else %}
-          <h4 class="mb-4">Images</h4>
           <form action="{% url 'pull_image' %}", method="POST">
             {% csrf_token %}
             <div class="input-group mb-3">
