@@ -5,19 +5,19 @@
         <ul class="nav nav-pills p-1">
           <li class="nav-item ">
             <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'index' %}">
-              <i class="bi bi-hdd-rack"></i>
-              Clusters
+              <i class="bi bi-house-fill"></i>
+              Home
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-1 {% if request.resolver_match.url_name == 'containers' or request.resolver_match.url_name == 'container_detail' or request.resolver_match.url_name == 'new_container' %}active{% endif %}" href="{% url 'containers' %}">
-              <i class="bi bi-box-fill"></i>
-              Containers
+              <i class="bi bi-hdd-rack-fill"></i>
+              Workers
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link {% if request.resolver_match.url_name == 'images' or request.resolver_match.url_name == 'image_detail' %}active{% endif %}" href="{% url 'images' %}">
-              <i class="bi bi-box"></i>
+              <i class="bi bi-box-fill"></i>
               Images
             </a>
           </li>
@@ -56,15 +56,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  document.getElementById('logout-link').addEventListener('mouseover', function() {
-      document.getElementById('profile-icon').className = 'bi bi-box-arrow-left';
-      document.getElementById('profile-icon').style.color = 'red';
-  });
-
-  document.getElementById('logout-link').addEventListener('mouseout', function() {
-      document.getElementById('profile-icon').className = 'bi bi-person-circle';
-      document.getElementById('profile-icon').style.color = '';
-  });
-</script>

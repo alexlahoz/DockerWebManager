@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 <a href="{% url 'images' %}" class="link-underline link-underline-opacity-0 mb-3"><i class="bi bi-caret-left-fill"></i> Images</a>
 
 
@@ -21,3 +24,17 @@
 
   </ul>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var btnLoading = document.getElementById("btnLoading");
+    var loadingDiv = document.getElementById("loading");
+
+    btnLoading.addEventListener("click", function() {
+      btnLoading.classList.add("d-none");
+      loadingDiv.classList.remove("d-none");
+    });
+  });
+</script>
+
+{% endblock %}

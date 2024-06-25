@@ -11,7 +11,17 @@ import threading
 
 @login_required
 def index(request):
-  return render(request, 'clusters/index.html', {'request': request})
+  try:
+    with docker_client() as client:
+        info = client.info()
+  except Exception as e:
+      return redirect('docker_not_running')
+
+  return render(request, 'clusters/index.html', {
+      'request': request,
+      'info': info
+    }
+  )
 
 @login_required
 def images(request):
@@ -35,7 +45,7 @@ def image_detail(request, image_id):
     return redirect('docker_not_running')
 
   with get_image(image_id) as image_data:
-    return render(request, 'clusters/images.html', {
+    return render(request, 'clusters/image_detail.html', {
         'request': request,
         'images': images,
         'image_data': image_data,
@@ -68,16 +78,26 @@ def remove_image(request, image_id):
 @login_required
 def containers(request):
   try:
-    with docker_client() as client:
-      containers = client.containers.list(all=True)
-  except:
-    return redirect('docker_not_running')
+      with docker_client() as client:
+          all_containers = client.containers.list(all=True)
+  except Exception as e:
+      return redirect('docker_not_running')
+
+  containers_with_network = []
+  containers = []
+
+  for container in all_containers:
+      network = next(iter(container.attrs['NetworkSettings']['Networks']))
+      if network == 'github-runner_default':
+          containers_with_network.append(container)
+      else:
+          containers.append(container)
 
   return render(request, 'clusters/containers.html', {
       'request': request,
+      'containers_with_network': containers_with_network,
       'containers': containers
-    }
-  )
+  })
 
 @login_required
 def container_console(request, container_id):
@@ -147,20 +167,33 @@ def remove_container(request, container_id):
 def container_detail(request, container_id):
   try:
     with docker_client() as client:
-      containers = client.containers.list(all=True)
+      all_containers = client.containers.list(all=True)
   except:
     return redirect('docker_not_running')
+
+  containers_with_network = []
+  containers = []
+
+  for container in all_containers:
+    network = next(iter(container.attrs['NetworkSettings']['Networks']))
+    if network == 'github-runner_default':
+        containers_with_network.append(container)
+    else:
+        containers.append(container)
 
   with get_container(container_id) as container_data:
     finished_at_date = container_data.attrs['State']['FinishedAt'][:10]
     finished_at_time = container_data.attrs['State']['FinishedAt'][11:19]
     finished_at = calculate_time_difference(finished_at_date, finished_at_time)
 
-    return render(request, 'clusters/containers.html', {
+    return render(request, 'clusters/container_detail.html', {
         'request': request,
+        'containers_with_network': containers_with_network,
         'containers': containers,
         'container_data': container_data,
-        'finished_at': finished_at
+        'finished_at': finished_at,
+        'networks': container_data.attrs['NetworkSettings']['Networks'],
+        'primary_network': next(iter(container_data.attrs['NetworkSettings']['Networks']))
       }
     )
 

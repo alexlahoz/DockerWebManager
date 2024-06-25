@@ -81,7 +81,7 @@ a {
 }
 
 .rounded-custom {
-  border-radius: 0.6rem;
+  border-radius: 0.6rem !important;
 }
 
 .hover-primary:hover {
