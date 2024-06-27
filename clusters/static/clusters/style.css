@@ -201,3 +201,7 @@ a {
   font-size: 0.5em;
   text-anchor: middle;
 }
+
+.component-image {
+  width: 60px;
+}

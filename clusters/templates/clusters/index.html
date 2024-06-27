@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-{{ info }}
+<ul>
+  <li>containers: {{ data.containers }}</li>
+  <li>images: {{ data.images }}</li>
+  <li>architecture: {{ data.architecture }}</li>
+  <li>cores: {{ data.ncpu }}</li>
+</ul>
 {% endblock %}

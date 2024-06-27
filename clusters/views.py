@@ -14,12 +14,18 @@ def index(request):
   try:
     with docker_client() as client:
         info = client.info()
+        data = {
+          'containers': info['Containers'],
+          'images': info['Images'],
+          'architecture': info['Architecture'],
+          'ncpu': info['NCPU']
+        }
   except Exception as e:
       return redirect('docker_not_running')
 
   return render(request, 'clusters/index.html', {
       'request': request,
-      'info': info
+      'data': data
     }
   )
 
@@ -78,25 +84,26 @@ def remove_image(request, image_id):
 @login_required
 def containers(request):
   try:
-      with docker_client() as client:
-          all_containers = client.containers.list(all=True)
+    with docker_client() as client:
+      all_containers = client.containers.list(all=True)
   except Exception as e:
-      return redirect('docker_not_running')
+    return redirect('docker_not_running')
 
   containers_with_network = []
   containers = []
 
   for container in all_containers:
-      network = next(iter(container.attrs['NetworkSettings']['Networks']))
-      if network == 'github-runner_default':
-          containers_with_network.append(container)
-      else:
-          containers.append(container)
+    add_last_started_method(container)
+    network = next(iter(container.attrs['NetworkSettings']['Networks']))
+    if network == 'github-runner_default':
+      containers_with_network.append(container)
+    else:
+      containers.append(container)
 
   return render(request, 'clusters/containers.html', {
-      'request': request,
-      'containers_with_network': containers_with_network,
-      'containers': containers
+    'request': request,
+    'containers_with_network': containers_with_network,
+    'containers': containers
   })
 
 @login_required
@@ -287,6 +294,18 @@ def get_container(container_id):
   yield container
 
 from datetime import datetime
+
+def add_last_started_method(container):
+  def last_started():
+    finished_at_date = container.attrs['State']['FinishedAt'][:10]
+    finished_at_time = container.attrs['State']['FinishedAt'][11:19]
+    try:
+      finished_at_datetime = calculate_time_difference(finished_at_date, finished_at_time)
+    except ValueError:
+      finished_at_datetime = None
+    return finished_at_datetime
+  container.last_started = last_started
+
 
 def calculate_time_difference(date, time):
     # Convert the date and time string to a datetime object
