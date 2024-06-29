@@ -33,7 +33,8 @@ def index(request):
 def images(request):
   try:
     with docker_client() as client:
-      images = client.images.list(filters={'dangling': False})
+      # images = client.images.list(filters={'dangling': False})
+      images = client.images.list()
   except:
     return redirect('docker_not_running')
 

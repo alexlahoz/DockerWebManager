@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% load image_tags %}
+
 <div class="btn-toolbar justify-content-between">
   <h4 class="mb-4">Images</h4>
 
@@ -24,13 +26,28 @@
   <div class="card shadow p-2 my-2">
     <div class="d-flex align-items-center justify-content-between">
       <a href="{% url 'image_detail' image.short_id %}">
-        <span class="ms-2">{{image.tags.0}}</span>
+        {% if not image.tags %}
+          <span class="ms-2">none</span>
+        {% else %}
+          <span class="ms-2">{{ image.tags.0|get_image_name }}</span>
+        {% endif %}
       </a>
-      <a href="{% url 'remove_image' image.short_id %}" class="btn btn-light"><i class="bi bi-trash-fill text-danger"></i></a>
+      <a href="{% url 'remove_image' image.short_id %}" class="btn btn-light">
+        <i class="bi bi-trash-fill text-danger"></i>
+      </a>
+
     </div>
+    {% if not image.tags %}
+      <span class="ms-2">none</span>
+    {% else %}
+      <span class="ms-2">{{ image.tags.0|get_image_tag }}</span>
+    {% endif %}
     <small class="ms-2 clipboard-container" data-short-id="{{ image.short_id|slice:"7:" }}">
-      {{ image.short_id|slice:"7:" }} <i class="btn bi bi-clipboard clipboard-icon" onclick="copyToClipboard(this)"></i>
+      {{ image.short_id|slice:"7:" }}
+      <i class="btn bi bi-clipboard clipboard-icon" onclick="copyToClipboard(this)"></i>
     </small>
+    <!-- <pre>{{ image.attrs|pprint }}</pre> -->
+    <!-- <pre>{{ image_data.attrs.Config.Env|pprint }}</pre> -->
   </div>
 {% endfor %}
 
