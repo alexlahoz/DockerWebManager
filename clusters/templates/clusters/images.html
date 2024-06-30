@@ -24,28 +24,37 @@
 
 {% for image in images %}
   <div class="card shadow p-2 my-2">
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="{% url 'image_detail' image.short_id %}">
+    <div class="row">
+      <div class="col">
+        <a href="{% url 'image_detail' image.short_id %}">
+          {% if not image.tags %}
+            <span class="ms-2">none</span>
+          {% else %}
+            <span class="ms-2">{{ image.tags.0|get_image_name }}</span>
+          {% endif %}
+        </a>
+        <div class="mt-2">
+          <small class="ms-2 clipboard-container" data-short-id="{{ image.short_id|slice:"7:" }}">
+            {{ image.short_id|slice:"7:" }}
+            <i class="btn bi bi-clipboard clipboard-icon" onclick="copyToClipboard(this)"></i>
+          </small>
+        </div>
+      </div>
+      <div class="col-2">
         {% if not image.tags %}
           <span class="ms-2">none</span>
         {% else %}
-          <span class="ms-2">{{ image.tags.0|get_image_name }}</span>
+          <span class="ms-2">{{ image.tags.0|get_image_tag }}</span>
         {% endif %}
-      </a>
-      <a href="{% url 'remove_image' image.short_id %}" class="btn btn-light">
-        <i class="bi bi-trash-fill text-danger"></i>
-      </a>
-
+      </div>
+      <div class="col-1">
+        <div class="btn-toolbar float-end">
+          <a href="{% url 'remove_image' image.short_id %}" class="btn btn-light">
+            <i class="bi bi-trash-fill text-danger"></i>
+          </a>
+        </div>
+      </div>
     </div>
-    {% if not image.tags %}
-      <span class="ms-2">none</span>
-    {% else %}
-      <span class="ms-2">{{ image.tags.0|get_image_tag }}</span>
-    {% endif %}
-    <small class="ms-2 clipboard-container" data-short-id="{{ image.short_id|slice:"7:" }}">
-      {{ image.short_id|slice:"7:" }}
-      <i class="btn bi bi-clipboard clipboard-icon" onclick="copyToClipboard(this)"></i>
-    </small>
     <!-- <pre>{{ image.attrs|pprint }}</pre> -->
     <!-- <pre>{{ image_data.attrs.Config.Env|pprint }}</pre> -->
   </div>
